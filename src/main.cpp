@@ -8,6 +8,12 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height);
 }
 
+void handleInput(GLFWwindow *window) {
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    glfwSetWindowShouldClose(window, true);
+  }
+}
+
 int main() {
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -24,7 +30,7 @@ int main() {
   glfwMakeContextCurrent(window);
 
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    std::cerr << "Failed to skibidi init GLAD" << std::endl;
+    std::cout << "Failed skibidi init GLAD" << std::endl;
     return -1;
   }
 
@@ -33,6 +39,8 @@ int main() {
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
   while (!glfwWindowShouldClose(window)) {
+    handleInput(window);
+
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
